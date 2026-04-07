@@ -1,23 +1,61 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+import Header from "./Header.astro";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "CACBRATZEN", 
+  description = "Website der Münchner Band cacbratzen" 
+} = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  
+  <body class="flex min-h-screen flex-col bg-background font-sans antialiased">
+    
+    <Header /> 
+
+    <main class="flex-1 page-fade-in flex flex-col">
+      <slot />
+    </main>
+
+    <footer class="mx-auto flex w-full max-w-7xl items-center justify-center gap-6 px-4 pb-8 pt-10 text-sm sm:text-base">
+      <a
+        href="https://instagram.com/cacbratzen"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 font-bold underline decoration-2 underline-offset-4 hover:opacity-70"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          class="h-5 w-5"
+          fill="currentColor"
+        >
+          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm6.5-2.25a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z" />
+        </svg>
+        <span>@cacbratzen</span>
+      </a>
+
+      <a href="/impressum" class="font-bold underline decoration-2 underline-offset-4 hover:opacity-70">
+        Impressum
+      </a>
+    </footer>
+  </body>
+</html>

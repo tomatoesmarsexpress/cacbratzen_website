@@ -1,0 +1,82 @@
+---
+// src/components/Header.astro
+const pathname = new URL(Astro.request.url).pathname;
+
+// Prüfen, ob wir auf der Startseite sind
+const isHome = pathname === "/" || pathname === "/index.html";
+
+const navItems = [
+  { href: "/videos", label: "videos" },
+  { href: "/shows", label: "shows" },
+  { href: "/das-team", label: "team" },
+];
+---
+
+{
+  /* Der gesamte Header wird nur gerendert, wenn wir NICHT auf Home sind */
+  !isHome && (
+    <header class="w-full px-6 py-8 sm:px-12">
+      <div class="mx-auto flex max-w-7xl items-center justify-between">
+        <a href="/" class="text-4xl font-black uppercase tracking-tighter">
+          CACBRATZEN
+        </a>
+
+        <nav class="hidden md:block">
+          <ul class="flex gap-8">
+            {navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-sm font-bold uppercase tracking-[0.2em] hover:opacity-60 transition-opacity"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <button
+          id="menu-toggle"
+          class="flex h-10 w-10 flex-col items-center justify-center gap-1 md:hidden"
+          aria-label="Menü öffnen"
+        >
+          <span class="h-1 w-8 bg-black transition-all" />
+          <span class="h-1 w-8 bg-black transition-all" />
+          <span class="h-1 w-8 bg-black transition-all" />
+        </button>
+      </div>
+
+      <nav id="nav-menu" class="hidden md:hidden pt-8">
+        <ul class="flex flex-col items-end gap-6">
+          {navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-2xl font-black uppercase tracking-widest"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+  )
+}
+
+<script>
+  // Skript nur ausführen, wenn der Button existiert (also nicht auf Home)
+  const btn = document.getElementById("menu-toggle");
+  const menu = document.getElementById("nav-menu");
+
+  btn?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    const spans = btn.querySelectorAll("span");
+    spans[0].classList.toggle("rotate-45");
+    spans[0].classList.toggle("translate-y-2");
+    spans[1].classList.toggle("opacity-0");
+    spans[2].classList.toggle("-rotate-45");
+    spans[2].classList.toggle("-translate-y-2");
+  });
+</script>

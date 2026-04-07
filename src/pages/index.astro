@@ -1,11 +1,51 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import logo from '../assets/images/caclogo.png';
+import videosImg from '../assets/images/videos.png';
+import showsImg from '../assets/images/shows.png';
+import teamImg from '../assets/images/team.png';
+import flyImg from '../assets/images/fly.png';
+import characterImg from '../assets/images/character.png';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const sections = [
+  { href: "/videos", img: videosImg, alt: "Videos" },
+  { href: "/shows", img: showsImg, alt: "Shows" },
+  { href: "/das-team", img: teamImg, alt: "Das Team" },
+];
 ---
 
 <Layout>
-	<Welcome />
+  <main class="relative mx-auto flex w-full max-w-7xl flex-col gap-8 overflow-hidden p-4 sm:p-8 lg:p-10">
+
+    <img src={flyImg.src} alt="Fly"
+      class="pointer-events-none absolute bottom-1 -right-3 z-20 hidden w-16 md:block lg:w-32" />
+
+    <img src={characterImg.src} alt="Character"
+      class="pointer-events-none absolute left-1 top-[22%] z-20 hidden w-36 md:block lg:w-72" />
+
+    <section class="flex items-center justify-center">
+      <img src={logo.src} alt="Logo"
+        class="max-w-full sm:max-w-2xl object-contain" />
+    </section>
+
+    <section class="grid grid-cols-1 place-items-center gap-5 md:grid-cols-3">
+      {sections.map((section) => {
+        return (
+          <a href={section.href}
+            class="inline-block transition-transform duration-200 hover:-translate-y-1">
+
+            <div class="aspect-square flex items-center justify-center">
+              <img
+                src={section.img.src}
+                alt={section.alt}
+                class="max-w-full object-contain"
+              />
+            </div>
+
+          </a>
+        );
+      })}
+    </section>
+
+  </main>
 </Layout>

@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import teamImg from '../assets/images/team.png';
+---
+
+<Layout>
+	<main class="min-h-screen flex flex-col items-center px-6 pt-24 pb-16">
+      <a
+        href="/"
+        class="absolute left-6 top-6 text-slate-700 text-4xl font-black leading-none transition-colors hover:text-slate-900"
+        aria-label="Zurück zur Startseite"
+      >
+        ←
+      </a>
+		<img
+			src={teamImg.src}
+			width={teamImg.width}
+			height={teamImg.height}
+			alt="Über uns"
+			class="w-full max-w-[10rem] md:max-w-[13rem] mb-4"
+			loading="lazy"
+			decoding="async"
+		/>
+		<p class="mt-2 text-slate-700 text-center">Erfahre mehr über uns auf insta :D</p>
+	</main>
+</Layout>
